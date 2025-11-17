@@ -2,9 +2,7 @@
 
 namespace Api.Controller
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class HelloController : ControllerBase  // ← исправлено!
+    public class HelloController : Basecontroller
     {
         [HttpGet("hello/{name}")]
         public string GetGreetingByName(string name)
