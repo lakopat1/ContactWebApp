@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 //единственный экземпл€р на врем€ работы 
 builder.Services.AddSingleton<DataContext>();
+builder.Services.AddSingleton<ContactStorage>();
 
 var app = builder.Build();
 
