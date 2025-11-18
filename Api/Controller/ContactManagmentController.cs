@@ -12,11 +12,20 @@ namespace Api.Controller
         {
             this.storage = storage;
         }
+
         [HttpPost("contacts")]
         public void Create(Api.Contact.Contact contact)
         {
-            
+            storage.Contacts.Add(contact);
         }
+
+        [HttpGet("contacts")]
+        public List<Api.Contact.Contact> GetContacts()
+        {
+            return storage.Contacts;
+        }
+
+
     }
 
 
