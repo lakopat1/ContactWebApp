@@ -25,9 +25,17 @@ namespace Api.Controller
             return storage.Contacts;
         }
 
+        [HttpDelete("contacts/{id}")]
+        public void DeleteContacts(int id)
+        {
+            for (int i = 0; i < storage.Contacts.Count; i++)
+            {
+                if (storage.Contacts[i].Id == id)
+                {
+                    storage.Contacts.RemoveAt(i);
+                }
 
+            }
+        }
     }
-
-
-    
 }
