@@ -1,5 +1,6 @@
-﻿using Api.Storage;  // ← добавить эту строку
+﻿using Api.Storage; 
 using Api.Contact;
+using Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,11 +29,14 @@ namespace Api.Controller
         [HttpDelete("contacts/{id}")]
         public void DeleteContacts(int id)
         {
+            Api.Contact.Contact contact;
             for (int i = 0; i < storage.Contacts.Count; i++)
             {
                 if (storage.Contacts[i].Id == id)
                 {
-                    storage.Contacts.RemoveAt(i);
+                    contact = storage.Contacts[i];
+                    storage.Contacts.Remove(contact);
+                    return;
                 }
 
             }
