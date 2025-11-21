@@ -41,5 +41,23 @@ namespace Api.Controller
 
             }
         }
+
+        [HttpPut("contacts/{id}")]
+        public void UpdateContacts([FromBody] ContactDto contactDto, int id)
+        {
+            Api.Contact.Contact contact1;
+            for (int i = 0; i < storage.Contacts.Count; i++)
+            {
+                if (storage.Contacts[i].Id == id)
+                {
+                    contact1 = storage.Contacts[i];
+                    contact1.Email = contactDto.Email;
+                    contact1.Name = contactDto.Name;
+
+                    return;
+                }
+
+            }
+        }
     }
 }
