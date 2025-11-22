@@ -51,8 +51,13 @@ namespace Api.Controller
                 if (storage.Contacts[i].Id == id)
                 {
                     contact1 = storage.Contacts[i];
-                    contact1.Email = contactDto.Email;
-                    contact1.Name = contactDto.Name;
+                    if (!String.IsNullOrEmpty(contactDto.Email)){
+                        contact1.Email = contactDto.Email;
+                    }
+
+                    if (!String.IsNullOrEmpty(contactDto.Name)){
+                        contact1.Name = contactDto.Name;
+                    }
 
                     return;
                 }
