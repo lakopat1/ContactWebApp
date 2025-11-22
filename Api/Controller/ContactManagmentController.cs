@@ -17,52 +17,26 @@ namespace Api.Controller
         [HttpPost("contacts")]
         public void Create(Api.Contact.Contact contact)
         {
-            storage.Contacts.Add(contact);
+            storage.AddContact(contact);
         }
 
         [HttpGet("contacts")]
         public List<Api.Contact.Contact> GetContacts()
         {
-            return storage.Contacts;
+            return storage.GetContacts();
         }
 
         [HttpDelete("contacts/{id}")]
         public void DeleteContacts(int id)
         {
-            Api.Contact.Contact contact;
-            for (int i = 0; i < storage.Contacts.Count; i++)
-            {
-                if (storage.Contacts[i].Id == id)
-                {
-                    contact = storage.Contacts[i];
-                    storage.Contacts.Remove(contact);
-                    return;
-                }
-
-            }
+            storage.RemoveContact(id);
         }
 
         [HttpPut("contacts/{id}")]
         public void UpdateContacts([FromBody] ContactDto contactDto, int id)
         {
-            Api.Contact.Contact contact1;
-            for (int i = 0; i < storage.Contacts.Count; i++)
-            {
-                if (storage.Contacts[i].Id == id)
-                {
-                    contact1 = storage.Contacts[i];
-                    if (!String.IsNullOrEmpty(contactDto.Email)){
-                        contact1.Email = contactDto.Email;
-                    }
 
-                    if (!String.IsNullOrEmpty(contactDto.Name)){
-                        contact1.Name = contactDto.Name;
-                    }
-
-                    return;
-                }
-
-            }
+            storage.UpdateConatct(contactDto, id);
         }
     }
 }
