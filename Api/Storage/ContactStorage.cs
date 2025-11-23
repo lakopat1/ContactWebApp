@@ -28,25 +28,34 @@ namespace Api.Storage
         {
             return this.Contacts;
         }
-        public List<Api.Contact.Contact> AddContact(Api.Contact.Contact contact)
+        public bool AddContact(Api.Contact.Contact contact)
         {
-            return this.Contacts;
+            foreach (var item in Contacts)
+            {
+                if (contact.Id == item.Id)
+                    return false;
+            }
+
+            Contacts.Add(contact);
+            return true;
         }
 
-        public void RemoveContact(int id)
+        public bool RemoveContact(int id)
         {
             for (int i = 0; i < this.Contacts.Count; i++)
             {
                 if (this.Contacts[i].Id == id)
                 {
                     this.Contacts.RemoveAt(i);
-                    return;
-
+                    return true;
+                    
                 }
             }
+
+            return false;
         }
 
-        public void UpdateConatct ([FromBody] ContactDto contactDto, int id)
+        public bool UpdateConatct ([FromBody] ContactDto contactDto, int id)
         {
             Api.Contact.Contact contact1;
             for (int i = 0; i < this.Contacts.Count; i++)
@@ -64,10 +73,12 @@ namespace Api.Storage
                         contact1.Name = contactDto.Name;
                     }
 
-                    return;
+                    return true;
                 }
 
             }
+
+            return false;
 
         }
 

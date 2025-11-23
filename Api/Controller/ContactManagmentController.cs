@@ -15,28 +15,45 @@ namespace Api.Controller
         }
 
         [HttpPost("contacts")]
-        public void Create(Api.Contact.Contact contact)
+        public IActionResult Create(Api.Contact.Contact contact)
         {
-            storage.AddContact(contact);
+            bool res = storage.AddContact(contact);
+
+            if (res)
+                return Ok(contact);
+            else
+                return Conflict("Контакт с указанным ID существует");
         }
+            
+
 
         [HttpGet("contacts")]
-        public List<Api.Contact.Contact> GetContacts()
+        public IActionResult GetContacts()
         {
-            return storage.GetContacts();
+            return Ok(storage.GetContacts());
         }
 
         [HttpDelete("contacts/{id}")]
-        public void DeleteContacts(int id)
+        public IActionResult DeleteContacts(int id)
         {
-            storage.RemoveContact(id);
+            bool res = storage.RemoveContact(id);
+
+            if(res)
+                return NoContent();
+            else
+                return BadRequest("Ошибка удаления");
         }
 
         [HttpPut("contacts/{id}")]
-        public void UpdateContacts([FromBody] ContactDto contactDto, int id)
+        public IActionResult UpdateContacts([FromBody] ContactDto contactDto, int id)
         {
 
-            storage.UpdateConatct(contactDto, id);
+            bool res = storage.UpdateConatct(contactDto, id);
+
+            if(res)
+                return Ok(contactDto);
+            else
+                return Conflict("Информация о контакте не обновилась");
         }
     }
 }
